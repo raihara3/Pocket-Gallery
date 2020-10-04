@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+}
+
+.start-button {
+  width: 100px;
+  margin: auto;
+  padding: 12px 6px;
+  border: solid 1px #fff;
+  border-radius: 4px;
+  background-color: rgba(0,0,0,0.5);
+  color: #fff;
+  font-family: 'Arial Narrow Bold', sans-serif;
+  text-align: center;
+  z-index: 999;
+
+  &.disable {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
