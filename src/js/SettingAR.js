@@ -31,10 +31,13 @@ const setScene = () => {
 }
 
 const setCamera = () => {
-  // fov, aspect, near, far
-  camera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, 0.01, 20)
+  const fov = 70;
+  const aspect = window.innerWidth/window.innerHeight
+  const near = 0.01
+  const far = 20
+  camera = new THREE.PerspectiveCamera(fov,aspect, near, far)
   window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth/window.innerHeight
+    camera.aspect = aspect
     camera.updateProjectionMatrix()
     renderer.setSize(window.innerWidth, window.innerHeight)
   }, false)
