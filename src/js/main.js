@@ -1,15 +1,18 @@
 import * as THREE from 'three'
 import SettingAR, { renderer, scene, camera, controller } from './SettingAR'
 
+const images = ['koten_01.png', 'koten_02.jpg', 'koten_03.jpg', 'koten_04.jpg']
+
 const setImage = () => {
   const loader = new THREE.TextureLoader();
-  var geometry = new THREE.PlaneGeometry( 1, 1, 1 );
+  // var geometry = new THREE.PlaneGeometry( 1, 1, 1 );
+  var geometry = new THREE.CubeGeometry( 1, -1, 0.5 );
   var material = new THREE.MeshBasicMaterial({
     color: 0xFFFFFF,
     map: loader.load('images/koten_02.jpg'),
   })
   var plane = new THREE.Mesh( geometry, material )
-  plane.position.copy({x: 0, y: 0, z: -1})
+  plane.position.copy({x: 0, y: 0, z: 0})
   plane.rotation.copy(controller.rotation)
   scene.add( plane )
 }
