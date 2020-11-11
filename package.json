@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/raihara3/virtual-koten#readme",
   "dependencies": {
-    "three": "^0.121.1"
+    "three": "^0.121.1",
+    "ts-loader": "^8.0.11",
+    "typescript": "^4.0.5"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^6.2.0",
