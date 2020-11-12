@@ -8,8 +8,9 @@
     "build-scss": "node-sass ./src/scss/ --output ./dist/",
     "watch-scss": "node-sass --watch ./src/scss/ --output ./dist/",
     "webpack": "webpack --config webpack.config.js --mode development",
-    "start": "run-p webpack build-scss watch-scss",
-    "precommit": "yarn run eslint .eslintrc"
+    "start": "run-p webpack build-scss watch-scss webpackdevserver",
+    "precommit": "yarn run eslint .eslintrc",
+    "webpackdevserver": "webpack-dev-server"
   },
   "husky": {
     "hooks": {
@@ -30,7 +31,8 @@
     "husky": "^4.3.0",
     "three": "^0.121.1",
     "ts-loader": "^8.0.11",
-    "typescript": "^4.0.5"
+    "typescript": "^4.0.5",
+    "webpack-dev-server": "^3.11.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.7.0",
