@@ -8,7 +8,13 @@
     "build-scss": "node-sass ./src/scss/ --output ./dist/",
     "watch-scss": "node-sass --watch ./src/scss/ --output ./dist/",
     "webpack": "webpack --config webpack.config.js --mode development",
-    "start": "run-p webpack build-scss watch-scss"
+    "start": "run-p webpack build-scss watch-scss",
+    "precommit": "yarn run eslint .eslintrc"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "precommit"
+    }
   },
   "repository": {
     "type": "git",
@@ -21,12 +27,18 @@
   },
   "homepage": "https://github.com/raihara3/virtual-koten#readme",
   "dependencies": {
+    "husky": "^4.3.0",
     "three": "^0.121.1",
     "ts-loader": "^8.0.11",
     "typescript": "^4.0.5"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
     "copy-webpack-plugin": "^6.2.0",
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
     "node-sass": "^4.14.1",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
