@@ -14,7 +14,7 @@ body {
   text-align: center;
   z-index: 999;
 
-  &.disable {
+  &:disable {
     pointer-events: none;
     opacity: 0.5;
   }
