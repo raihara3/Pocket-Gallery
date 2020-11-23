@@ -7,6 +7,30 @@ let controller;
 init();
 animate();
 
+class ARObject {
+  camera: THREE.Camera
+  scene: THREE.Scene
+  renderer: THREE.WebGLRenderer
+
+  constructor() {
+    const fov = 70
+    const aspect = window.innerWidth / window.innerHeight
+    const near = 0.01
+    const far = 20
+
+    this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
+    this.scene = new THREE.Scene()
+    this.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true})
+  }
+
+  init() {
+    this.renderer.setPixelRatio(window.devicePixelRatio)
+    this.renderer.setSize(window.innerWidth, window.innerHeight)
+    this.renderer.xr.enabled = true
+    document.body.appendChild(this.renderer.domElement)
+  }
+}
+
 function init() {
 
   // 1. レンダラーのalphaオプションをtrueにする
