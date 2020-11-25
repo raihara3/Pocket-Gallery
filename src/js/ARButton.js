@@ -1,6 +1,4 @@
 import * as THREE from 'three';
-import { MathUtils } from 'three';
-import { convertTypeAcquisitionFromJson } from 'typescript';
 
 let xrHitTestSource = null
 let xrRefSpace = null

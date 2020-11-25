@@ -49,7 +49,7 @@ class ARObject {
     this.animate()
   }
 
-  animate() {
+  private animate() {
     this.renderer.setAnimationLoop(() =>
       this.renderer.render(this.scene, this.camera)
     )
