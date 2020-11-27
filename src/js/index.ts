@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-import { ARButton } from './ARButton';
+import ARButton from './ARButton'
+// import { ARButton } from './ARButton';
 
 class ARObject {
   camera: THREE.PerspectiveCamera
@@ -31,9 +32,12 @@ class ARObject {
     light.position.set(0, 1, 0)
     this.scene.add(light)
 
-    document.body.appendChild(ARButton.createButton(this.renderer,
-      {requiredFeatures: ['local', 'hit-test']}, this.scene)
+    const arButton = new ARButton(
+      this.renderer,
+      this.scene,
+      {requiredFeatures: ['local', 'hit-test']}
     )
+    document.body.appendChild(arButton.createButton)
 
     window.addEventListener('resize', () => {
       this.camera.aspect = this.aspect

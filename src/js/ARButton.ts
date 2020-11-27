@@ -28,13 +28,14 @@ class ARButton {
     this.button.textContent = 'START AR'
     const isSupported = await WebXR.isSupported()
     if(!isSupported) return this.button
-    this.setSession()
 
+    const webXR = new WebXR(
+      this.renderer,
+      this.sessionInit,
+      this.scene
+    )
+    this.button.onclick = webXR.setSession
     return this.button
-  }
-
-  private setSession() {
-
   }
 }
 
