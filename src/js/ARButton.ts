@@ -34,7 +34,7 @@ class ARButton {
       this.sessionInit,
       this.scene
     )
-    this.button.onclick = webXR.setSession
+    this.button.onclick = () => webXR.setSession()
     return this.button
   }
 }

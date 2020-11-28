@@ -22,7 +22,7 @@ class ARObject {
     this.controller = new THREE.Group()
   }
 
-  init() {
+  async init() {
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.renderer.xr.enabled = true
@@ -37,7 +37,9 @@ class ARObject {
       this.scene,
       {requiredFeatures: ['local', 'hit-test']}
     )
-    document.body.appendChild(arButton.createButton)
+
+    const targetDom = document.getElementById('webAR')
+    targetDom && targetDom.appendChild(await arButton.createButton())
 
     window.addEventListener('resize', () => {
       this.camera.aspect = this.aspect

@@ -49,7 +49,8 @@ class WebXR {
   }
 
   private onSessionEnded() {
-    this.currentSession?.removeEventListener('end', this.onSessionEnded)
+    if(!this.currentSession) return
+    this.currentSession.removeEventListener('end', this.onSessionEnded)
     this.currentSession = null
   }
 
@@ -64,7 +65,7 @@ class WebXR {
       let hitTestResults = frame.getHitTestResults(this.xrHitTestSource)
       if(hitTestResults.length > 0) {
         let pose = hitTestResults[0].getPose(this.xrRefSpace)
-        this.handleController(pose?.transform.matrix)
+        pose && this.handleController(pose.transform.matrix)
       }
     }
   }
