@@ -37,7 +37,7 @@ class WebXR {
     const refSpace = await this.session.requestReferenceSpace('viewer')
     this.xrHitTestSource = await this.session.requestHitTestSource({space: refSpace})
     this.xrRefSpace = await this.session.requestReferenceSpace('local')
-    this.session.requestAnimationFrame(this.onXRFrame)
+    this.session.requestAnimationFrame((_, frame) => this.onXRFrame(_, frame))
   }
 
   private onSessionStarted() {
@@ -68,19 +68,26 @@ class WebXR {
         pose && this.handleController(pose.transform.matrix)
       }
     }
+
+    this.session.requestAnimationFrame((_, frame) => this.onXRFrame(_, frame))
   }
 
-  private handleController(matrix: Float32Array | undefined) {
+  private handleController(matrix) {
     const controller = this.renderer.xr.getController(0)
     if(!controller.userData.isSelecting) return
 
+    console.log(matrix)
+    console.log(matrix[0])
+    console.log(...matrix)
     const mesh = this.makeArrow(Math.floor(Math.random() * 0xffffff), matrix)
     this.scene.add(mesh)
     controller.userData.isSelecting = false
   }
 
   private makeArrow(color, matrix) {
-    const geometry = new THREE.ConeGeometry(0.03, 0.1, 32)
+    const geometry = new THREE.BufferGeometry()
+    geometry.setAttribute('position', new THREE.BufferAttribute(matrix, 4))
+    // const geometry = new THREE.ConeGeometry(0.03, 0.1, 32)
     const material = new THREE.MeshStandardMaterial({
       color: color,
       roughness: 0.9,
@@ -93,10 +100,9 @@ class WebXR {
     const mesh = new THREE.Group()
     mesh.add(localMesh)
 
-    const m = new THREE.Matrix4().set(matrix)
-    mesh.matrix.set(m)
+    // const m = new THREE.Matrix4().set(matrix)
+    // mesh.matrix.set(m)
     // mesh.position.set(0, 0, -1)
-    console.log(mesh)
     return mesh
   }
 }

@@ -24,7 +24,7 @@ class ARButton {
     }
 
     this.button.classList.add('ar-button')
-    this.button.style.display = 'none'
+    // this.button.style.display = 'none'
     this.button.textContent = 'START AR'
     const isSupported = await WebXR.isSupported()
     if(!isSupported) return this.button

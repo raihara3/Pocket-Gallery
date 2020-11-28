@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import ARButton from './ARButton'
-// import { ARButton } from './ARButton';
 
 class ARObject {
   camera: THREE.PerspectiveCamera
@@ -33,9 +32,9 @@ class ARObject {
     this.scene.add(light)
 
     const arButton = new ARButton(
-      this.renderer,
-      this.scene,
-      {requiredFeatures: ['local', 'hit-test']}
+      this.renderer, this.scene, {
+        requiredFeatures: ['local', 'hit-test']
+      }
     )
 
     const targetDom = document.getElementById('webAR')
