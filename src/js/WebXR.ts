@@ -1,6 +1,7 @@
-import * as THREE from 'three';
+import * as THREE from 'three'
 import XR from './Navigator'
 import Reticle from './Reticle'
+import Gallery from './Gallery'
 
 class WebXR {
   currentSession: THREE.XRSession | null
@@ -73,7 +74,7 @@ class WebXR {
       let hitTestResults = frame.getHitTestResults(this.xrHitTestSource)
       if(hitTestResults.length > 0) {
         let pose = hitTestResults[0].getPose(this.xrRefSpace)
-        pose && this.handleController(pose.transform.matrix, pose.transform.position)
+        pose && this.handleController(pose.transform.position)
         pose && this.reticle.updateMatrix(pose)
       }
     }
@@ -81,11 +82,11 @@ class WebXR {
     this.session.requestAnimationFrame((_, frame) => this.onXRFrame(_, frame))
   }
 
-  private handleController(matrix, position) {
+  private handleController(position) {
     const controller = this.renderer.xr.getController(0)
     if(!controller.userData.isSelecting) return
 
-    const mesh = this.makeArrow(Math.floor(Math.random() * 0xffffff), matrix)
+    const mesh = new Gallery().createRoom()
     mesh.position.set(
       position.x,
       position.y,
@@ -93,25 +94,6 @@ class WebXR {
     )
     this.scene.add(mesh)
     controller.userData.isSelecting = false
-  }
-
-  private makeArrow(color, matrix) {
-    // const geometry = new THREE.BufferGeometry()
-    // geometry.setAttribute('position', new THREE.BufferAttribute(matrix, 4))
-    const geometry = new THREE.ConeGeometry(0.03, 0.1, 32)
-    const material = new THREE.MeshStandardMaterial({
-      color: color,
-      roughness: 0.9,
-      metalness: 0.0,
-      side: THREE.DoubleSide
-    });
-
-    const localMesh = new THREE.Mesh(geometry, material);
-    localMesh.rotation.x = -Math.PI / 2
-    const mesh = new THREE.Group()
-    mesh.add(localMesh)
-
-    return mesh
   }
 }
 
