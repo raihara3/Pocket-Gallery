@@ -1,60 +1,67 @@
 import * as THREE from 'three'
 
+enum PlaneType {
+  Floor,
+  WallLeft,
+  WallRight,
+  wallBack
+}
+
 class Gallery {
-  constructor() {}
+  planeWidth: number
+  planeHeight: number
+  planeSegment: number
+
+  constructor() {
+    this.planeWidth = 0.1
+    this.planeHeight = 0.1
+    this.planeSegment = 0.1
+  }
 
   createRoom() {
     const mesh = new THREE.Group()
-    const floor = this.createFloor()
-    const wallLeft = this.createWallLeft()
-    const wallRight = this.createWallRight()
-    const wallBack = this.createWallBack()
-    mesh.add(floor, wallLeft, wallRight, wallBack)
+    mesh.add(
+      this.createPlane(PlaneType.Floor),
+      this.createPlane(PlaneType.WallLeft),
+      this.createPlane(PlaneType.WallRight),
+      this.createPlane(PlaneType.wallBack)
+    )
     return mesh
   }
 
-  private createFloor() {
-    const planeGeometry = new THREE.PlaneGeometry(0.1, 0.1, 0.1)
-    planeGeometry.rotateX(-0.5 * Math.PI)
-    const material = new THREE.MeshBasicMaterial({
+  private createPlane(type: PlaneType) {
+    const planeGeometry = new THREE.PlaneGeometry(this.planeWidth, this.planeHeight, this.planeSegment)
+    type === PlaneType.Floor && planeGeometry.rotateX(-0.5 * Math.PI)
+    const material = this.getMaterial(type)
+    const mesh = new THREE.Mesh(planeGeometry, material)
+
+    switch(type) {
+      case PlaneType.Floor:
+        mesh.position.set(0, 0, 0)
+        break
+      case PlaneType.WallLeft:
+        mesh.position.set(-(this.planeWidth/2), this.planeHeight/2, 0)
+        mesh.rotation.set(0, Math.PI / 2, 0)
+        break
+      case PlaneType.WallRight:
+        mesh.position.set(this.planeWidth/2, this.planeHeight/2, 0)
+        mesh.rotation.set(0, -Math.PI / 2, 0)
+        break
+      case PlaneType.wallBack:
+        mesh.position.set(0, this.planeHeight/2, -(this.planeWidth/2))
+        mesh.rotation.set(0, 0, 0)
+        break
+    }
+    return mesh
+  }
+
+  private getMaterial(type: PlaneType) {
+    const material = type === PlaneType.Floor ? new THREE.MeshBasicMaterial({
       color: 0xffff00
-    })
-    const floor = new THREE.Mesh(planeGeometry, material)
-    floor.position.set(0, 0, 0)
-    return floor
-  }
-
-  private createWallLeft() {
-    const planeGeometry = new THREE.PlaneGeometry(0.1, 0.1, 0.1)
-    const material = new THREE.MeshBasicMaterial({
+    }) : new THREE.MeshBasicMaterial({
       color: 0xffffff
     })
-    const wallLeft = new THREE.Mesh(planeGeometry, material)
-    wallLeft.position.set(-0.05, 0.05, 0)
-    wallLeft.rotation.set(0, Math.PI / 2, 0)
-    return wallLeft
-  }
-
-  private createWallRight() {
-    const planeGeometry = new THREE.PlaneGeometry(0.1, 0.1, 0.1)
-    const material = new THREE.MeshBasicMaterial({
-      color: 0xffffff
-    })
-    const wallRight = new THREE.Mesh(planeGeometry, material)
-    wallRight.position.set(0.05, 0.05, 0)
-    wallRight.rotation.set(0, -Math.PI / 2, 0)
-    return wallRight
-  }
-
-  private createWallBack() {
-    const planeGeometry = new THREE.PlaneGeometry(0.1, 0.1, 0.1)
-    const material = new THREE.MeshBasicMaterial({
-      color: 0xffffff
-    })
-    const wallBack = new THREE.Mesh(planeGeometry, material)
-    wallBack.position.set(0, 0.05, -0.05)
-    wallBack.rotation.set(0, 0, 0)
-    return wallBack
+    return material
   }
 }
 
