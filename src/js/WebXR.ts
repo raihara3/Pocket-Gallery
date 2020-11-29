@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import XR from './Navigator'
+import Reticle from './Reticle'
 
 class WebXR {
   currentSession: THREE.XRSession | null
@@ -10,6 +11,7 @@ class WebXR {
   xrHitTestSource: THREE.XRHitTestSource | null
   xrRefSpace: THREE.XRReferenceSpace | null
   xrPlaneObject: THREE.Mesh | null
+  reticle: Reticle
 
   constructor(renderer, sessionInit, scene) {
     this.currentSession = null
@@ -20,6 +22,7 @@ class WebXR {
     this.xrHitTestSource = null
     this.xrRefSpace = null
     this.xrPlaneObject = null
+    this.reticle = new Reticle()
   }
 
   static isSupported() {
@@ -49,11 +52,8 @@ class WebXR {
     this.renderer.xr.setSession(this.session)
     this.currentSession = this.session
 
-    const xrPlaneGeometry = new THREE.PlaneBufferGeometry( 100, 100, 100, 100 );
-    xrPlaneGeometry.rotateX( -0.5 * Math.PI );
-    const xrPlaneMaterial = new THREE.MeshBasicMaterial( { wireframe: true, side: THREE.DoubleSide } );
-    this.xrPlaneObject = new THREE.Mesh( xrPlaneGeometry, xrPlaneMaterial );
-    this.scene.add( this.xrPlaneObject )
+    const reticle = this.reticle.create()
+    this.scene.add(reticle)
   }
 
   private onSessionEnded() {
@@ -74,20 +74,7 @@ class WebXR {
       if(hitTestResults.length > 0) {
         let pose = hitTestResults[0].getPose(this.xrRefSpace)
         pose && this.handleController(pose.transform.matrix, pose.transform.position)
-        if(pose && this.xrPlaneObject) {
-          this.xrPlaneObject.position.set(
-            pose.transform.position.x,
-            pose.transform.position.y,
-            pose.transform.position.z
-          )
-          this.xrPlaneObject.quaternion.set(
-            pose.transform.orientation.x,
-            pose.transform.orientation.y,
-            pose.transform.orientation.z,
-            pose.transform.orientation.w
-          )
-          this.xrPlaneObject.updateMatrix()
-        }
+        pose && this.reticle.updateMatrix(pose)
       }
     }
 
