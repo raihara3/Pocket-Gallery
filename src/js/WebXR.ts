@@ -98,6 +98,7 @@ class WebXR {
       transform.orientation.z,
       transform.orientation.w
     )
+    mesh.rotateY(0.25 * Math.PI)
     this.scene.add(mesh)
     controller.userData.isSelecting = false
   }

@@ -22,7 +22,7 @@ class Gallery {
     const mesh = new THREE.Group()
     mesh.add(
       this.createPlane(PlaneType.Floor),
-      this.createPlane(PlaneType.WallLeft),
+      // this.createPlane(PlaneType.WallLeft),
       this.createPlane(PlaneType.WallRight),
       this.createPlane(PlaneType.wallBack)
     )
@@ -42,23 +42,29 @@ class Gallery {
       case PlaneType.WallLeft:
         mesh.position.set(-(this.planeWidth/2), this.planeHeight/2, 0)
         mesh.rotation.set(0, Math.PI / 2, 0)
+        mesh.receiveShadow = true
+        mesh.castShadow = true
         break
       case PlaneType.WallRight:
         mesh.position.set(this.planeWidth/2, this.planeHeight/2, 0)
         mesh.rotation.set(0, -Math.PI / 2, 0)
+        mesh.receiveShadow = true
+        mesh.castShadow = true
         break
       case PlaneType.wallBack:
         mesh.position.set(0, this.planeHeight/2, -(this.planeWidth/2))
         mesh.rotation.set(0, 0, 0)
+        mesh.receiveShadow = true
+        mesh.castShadow = true
         break
     }
     return mesh
   }
 
   private getMaterial(type: PlaneType) {
-    const material = type === PlaneType.Floor ? new THREE.MeshBasicMaterial({
+    const material = type === PlaneType.Floor ? new THREE.MeshStandardMaterial({
       color: 0xffff00
-    }) : new THREE.MeshBasicMaterial({
+    }) : new THREE.MeshStandardMaterial({
       color: 0xffffff
     })
     return material

@@ -25,11 +25,20 @@ class ARObject {
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.renderer.xr.enabled = true
+    this.renderer.shadowMap.enabled = true
+    this.renderer.shadowMap.autoUpdate = true
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
     document.body.appendChild(this.renderer.domElement)
 
-    let light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1)
-    light.position.set(0, 1, 0)
+    let light = new THREE.DirectionalLight(0xffffff, 1)
+    light.castShadow = true
+    light.position.set(10, 50, 50)
+    light.shadow.mapSize.width = 1024
+    light.shadow.mapSize.height = 1024
     this.scene.add(light)
+
+    // const helper = new THREE.CameraHelper(light.shadow.camera)
+    // this.scene.add(helper)
 
     const arButton = new ARButton(
       this.renderer, this.scene, {
