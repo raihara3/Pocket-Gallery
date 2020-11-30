@@ -30,9 +30,9 @@ class ARObject {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
     document.body.appendChild(this.renderer.domElement)
 
-    let light = new THREE.DirectionalLight(0xffffff, 1)
+    const light = new THREE.DirectionalLight(0xffffff, 1.2)
     light.castShadow = true
-    light.position.set(10, 50, 50)
+    light.position.set(0, 10, 30)
     light.shadow.mapSize.width = 1024
     light.shadow.mapSize.height = 1024
     this.scene.add(light)

@@ -62,10 +62,12 @@ class Gallery {
   }
 
   private getMaterial(type: PlaneType) {
-    const material = type === PlaneType.Floor ? new THREE.MeshStandardMaterial({
-      color: 0xffff00
-    }) : new THREE.MeshStandardMaterial({
-      color: 0xffffff
+    const loader = new THREE.TextureLoader()
+    const texture = type === PlaneType.Floor
+    ? loader.load('/images/floor.jpg')
+    : loader.load('/images/wall.jpg')
+    const material = new THREE.MeshStandardMaterial({
+      map: texture
     })
     return material
   }
