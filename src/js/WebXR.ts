@@ -74,7 +74,7 @@ class WebXR {
       let hitTestResults = frame.getHitTestResults(this.xrHitTestSource)
       if(hitTestResults.length > 0) {
         let pose = hitTestResults[0].getPose(this.xrRefSpace)
-        pose && this.handleController(pose.transform.position)
+        pose && this.handleController(pose.transform)
         pose && this.reticle.updateMatrix(pose)
       }
     }
@@ -82,15 +82,21 @@ class WebXR {
     this.session.requestAnimationFrame((_, frame) => this.onXRFrame(_, frame))
   }
 
-  private handleController(position) {
+  private handleController(transform: THREE.XRRigidTransform) {
     const controller = this.renderer.xr.getController(0)
     if(!controller.userData.isSelecting) return
 
     const mesh = new Gallery().createRoom()
     mesh.position.set(
-      position.x,
-      position.y,
-      position.z
+      transform.position.x,
+      transform.position.y,
+      transform.position.z
+    )
+    mesh.quaternion.set(
+      transform.orientation.x,
+      transform.orientation.y,
+      transform.orientation.z,
+      transform.orientation.w
     )
     this.scene.add(mesh)
     controller.userData.isSelecting = false
