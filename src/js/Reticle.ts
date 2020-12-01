@@ -2,9 +2,11 @@ import * as THREE from 'three'
 
 class Reticle {
   reticle: THREE.Mesh | null
+  display: boolean
 
   constructor() {
     this.reticle = null
+    this.display = false
   }
 
   create() {
@@ -12,6 +14,8 @@ class Reticle {
     ringGeometry.rotateX(-0.5 * Math.PI)
     const material = new THREE.MeshBasicMaterial({color: 0xffff00, side: THREE.DoubleSide})
     this.reticle = new THREE.Mesh(ringGeometry, material)
+    this.reticle.name = 'reticle'
+    this.display = true
     return this.reticle
   }
 
@@ -29,6 +33,12 @@ class Reticle {
       pose.transform.orientation.w
     )
     this.reticle.updateMatrix()
+  }
+
+  remove(scene: THREE.Scene) {
+    const reticle = scene.getObjectByName('reticle')
+    reticle && scene.remove(reticle)
+    this.display = false
   }
 }
 

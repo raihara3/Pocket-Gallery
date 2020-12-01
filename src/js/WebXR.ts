@@ -64,6 +64,8 @@ class WebXR {
   }
 
   private onXRFrame(_, frame: THREE.XRFrame) {
+    if(!this.reticle.display) return
+
     this.session = frame.session
     let pose: THREE.XRViewerPose | undefined
     if(this.xrRefSpace) {
@@ -111,6 +113,8 @@ class WebXR {
     mesh.rotateY(0.25 * Math.PI)
     this.scene.add(light, mesh)
     controller.userData.isSelecting = false
+
+    this.reticle.remove(this.scene)
   }
 }
 
