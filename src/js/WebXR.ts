@@ -86,6 +86,16 @@ class WebXR {
     const controller = this.renderer.xr.getController(0)
     if(!controller.userData.isSelecting) return
 
+    const light = new THREE.DirectionalLight(0xffffff, 1.2)
+    light.castShadow = true
+    light.position.set(
+      transform.position.x,
+      transform.position.y + 10,
+      transform.position.z + 15
+    )
+    light.shadow.mapSize.width = 1024
+    light.shadow.mapSize.height = 1024
+
     const mesh = new Gallery().createRoom()
     mesh.position.set(
       transform.position.x,
@@ -99,7 +109,7 @@ class WebXR {
       transform.orientation.w
     )
     mesh.rotateY(0.25 * Math.PI)
-    this.scene.add(mesh)
+    this.scene.add(light, mesh)
     controller.userData.isSelecting = false
   }
 }
