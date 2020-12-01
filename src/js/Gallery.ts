@@ -13,9 +13,9 @@ class Gallery {
   planeSegment: number
 
   constructor() {
-    this.planeWidth = 0.1
-    this.planeHeight = 0.1
-    this.planeSegment = 0.1
+    this.planeWidth = 0.2
+    this.planeHeight = 0.2
+    this.planeSegment = 0.2
   }
 
   createRoom() {
