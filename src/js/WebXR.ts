@@ -95,23 +95,31 @@ class WebXR {
       transform.position.y + 10,
       transform.position.z + 15
     )
-    light.shadow.mapSize.width = 1024
-    light.shadow.mapSize.height = 1024
-
-    const mesh = new Gallery().createRoom()
-    mesh.position.set(
-      transform.position.x,
-      transform.position.y,
-      transform.position.z
-    )
-    mesh.quaternion.set(
+    light.quaternion.set(
       transform.orientation.x,
       transform.orientation.y,
       transform.orientation.z,
       transform.orientation.w
     )
-    mesh.rotateY(0.25 * Math.PI)
-    this.scene.add(light, mesh)
+    light.shadow.mapSize.width = 1024
+    light.shadow.mapSize.height = 1024
+
+    const gallery = new Gallery()
+    const room = gallery.createRoom()
+    room.position.set(
+      transform.position.x,
+      transform.position.y,
+      transform.position.z
+    )
+    room.quaternion.set(
+      transform.orientation.x,
+      transform.orientation.y,
+      transform.orientation.z,
+      transform.orientation.w
+    )
+    room.rotateY(0.25 * Math.PI)
+
+    this.scene.add(light, room)
     controller.userData.isSelecting = false
 
     this.reticle.remove(this.scene)
