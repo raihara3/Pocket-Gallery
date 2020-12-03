@@ -89,7 +89,7 @@ class WebXR {
     if(!controller.userData.isSelecting) return
 
     const light = new THREE.DirectionalLight(0xffffff, 1.2)
-    light.castShadow = true
+    // light.castShadow = true
     light.position.set(
       transform.position.x,
       transform.position.y + 10,
@@ -101,8 +101,8 @@ class WebXR {
       transform.orientation.z,
       transform.orientation.w
     )
-    light.shadow.mapSize.width = 1024
-    light.shadow.mapSize.height = 1024
+    // light.shadow.mapSize.width = 1024
+    // light.shadow.mapSize.height = 1024
 
     const gallery = new Gallery()
     const room = gallery.createRoom()

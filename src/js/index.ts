@@ -25,9 +25,9 @@ class ARObject {
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.renderer.xr.enabled = true
-    this.renderer.shadowMap.enabled = true
-    this.renderer.shadowMap.autoUpdate = true
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+    // this.renderer.shadowMap.enabled = true
+    // this.renderer.shadowMap.autoUpdate = true
+    // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
     document.body.appendChild(this.renderer.domElement)
 
     // const helper = new THREE.CameraHelper(light.shadow.camera)
