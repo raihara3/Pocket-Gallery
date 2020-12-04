@@ -7,30 +7,32 @@ enum PlaneType {
   WallBack
 }
 
-// enum FrameType {
-//   Left,
-//   Top,
-//   Right,
-//   Bottom
-// }
-
 class PictureFrame {
   width: number
   height: number
   parentWidth: number
   parentHeight: number
+  type: PlaneType | null
+  position: any
+  rotation: any
+  placement: 'left' | 'right'
 
   constructor(parentWidth, parentHeight) {
     this.width = 0.05
     this.height = 0.05
     this.parentWidth = parentWidth
     this.parentHeight = parentHeight
+    this.type = null
+    this.position = {}
+    this.rotation = {}
+    this.placement = 'left'
   }
 
   create(type: PlaneType, position: any, rotation: any, placement: 'left' | 'right') {
     const mesh = new THREE.Group()
     mesh.add(
-      this.createPicture(type, placement)
+      this.createPicture(type, placement),
+      this.createFrame()
     )
 
     const ajustment = placement === 'left' ? -1 : 1
@@ -59,13 +61,6 @@ class PictureFrame {
     return mesh
   }
 
-  // private createPictureFrame() {
-  //   const mesh = new THREE.Group()
-  //   const picture = this.createPicture()
-  //   const frame = this.createFrame()
-  //   mesh.add()
-  // }
-
   private createPicture(type: PlaneType, placement: 'left' | 'right') {
     const planeGeometry = new THREE.PlaneGeometry(this.width, this.height)
     const loader = new THREE.TextureLoader()
@@ -91,26 +86,35 @@ class PictureFrame {
     return ''
   }
 
-  // private createFrame(type: FrameType) {
-  //   const boxGeometry = new THREE.BoxGeometry()
-  //   switch (type) {
-  //     case FrameType.Left:
-  //     case FrameType.Top:
-  //       boxGeometry.parameters.width = this.width / 10
-  //       boxGeometry.parameters.height = this.height
-  //       break
-  //     case FrameType.Top:
-  //     case FrameType.Bottom:
-  //       boxGeometry.parameters.width = this.width
-  //       boxGeometry.parameters.height = this.width / 10
-  //       break
-  //   }
-  //   const loader = new THREE.TextureLoader()
-  //   const material = new THREE.MeshStandardMaterial({
-  //     map: loader.load('/images/frame.jpg')
-  //   })
-  //   return new THREE.Mesh(boxGeometry, material)
-  // }
+  private createFrame() {
+    const mesh = new THREE.Group()
+    const setMaterial = (geometry) => {
+      const loader = new THREE.TextureLoader()
+      const material = new THREE.MeshStandardMaterial({
+        map: loader.load('/images/frame.jpg')
+      })
+      return new THREE.Mesh(geometry, material)
+    }
+
+    const depth = this.height / 20
+    const top = new THREE.BoxGeometry(this.width, depth, depth)
+    top.translate(0, this.height/2, 0)
+    mesh.add(setMaterial(top))
+
+    const right = new THREE.BoxGeometry(depth, this.height, depth)
+    right.translate((this.width/2) - (depth/2), 0, 0)
+    mesh.add(setMaterial(right))
+
+    const bottom = new THREE.BoxGeometry(this.width, depth, depth)
+    bottom.translate(0, -(this.height/2), 0)
+    mesh.add(setMaterial(bottom))
+
+    const left = new THREE.BoxGeometry(depth, this.height, depth)
+    left.translate(-(this.width/2) + (depth/2), 0, 0)
+    mesh.add(setMaterial(left))
+
+    return mesh
+  }
 }
 
 export default PictureFrame
