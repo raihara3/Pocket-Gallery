@@ -29,7 +29,30 @@ class Gallery {
 
     const pictureFrame = new PictureFrame(this.planeWidth, this.planeHeight)
     mesh.add(
-      pictureFrame.create(),
+      pictureFrame.create(
+        PlaneType.WallBack,
+        this.getPosition(PlaneType.WallBack),
+        this.getRotation(PlaneType.WallBack),
+        'left'
+      ),
+      pictureFrame.create(
+        PlaneType.WallBack,
+        this.getPosition(PlaneType.WallBack),
+        this.getRotation(PlaneType.WallBack),
+        'right'
+      ),
+      pictureFrame.create(
+        PlaneType.WallRight,
+        this.getPosition(PlaneType.WallRight),
+        this.getRotation(PlaneType.WallRight),
+        'left'
+      ),
+      pictureFrame.create(
+        PlaneType.WallRight,
+        this.getPosition(PlaneType.WallRight),
+        this.getRotation(PlaneType.WallRight),
+        'right'
+      ),
     )
     return mesh
   }

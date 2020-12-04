@@ -88,7 +88,7 @@ class WebXR {
     const controller = this.renderer.xr.getController(0)
     if(!controller.userData.isSelecting) return
 
-    const light = new THREE.DirectionalLight(0xffffff, 1.2)
+    const light = new THREE.DirectionalLight(0xffffff)
     // light.castShadow = true
     light.position.set(
       transform.position.x,
