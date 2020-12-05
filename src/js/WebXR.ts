@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import XR from './Navigator'
 import Reticle from './Reticle'
 import Gallery from './Gallery'
@@ -119,7 +120,22 @@ class WebXR {
     )
     room.rotateY(0.25 * Math.PI)
 
-    this.scene.add(light, room)
+    new GLTFLoader().load('/model/host.gltf', (gltf) => {
+      const model = gltf.scene
+      model.scale.set(0.025, 0.025, 0.025)
+      model.position.set(
+        transform.position.x,
+        transform.position.y,
+        transform.position.z
+      )
+      model.quaternion.set(
+        transform.orientation.x,
+        transform.orientation.y,
+        transform.orientation.z,
+        transform.orientation.w
+      )
+      this.scene.add(light, room, model)
+    })
     controller.userData.isSelecting = false
 
     this.reticle.remove(this.scene)

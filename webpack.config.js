@@ -26,7 +26,7 @@ module.exports = {
       patterns: [
         {
           context: __dirname + '/src',
-          from: '**/*.{html,jpg,png}',
+          from: '**/*.{html,jpg,png,gltf}',
           to: __dirname + '/dist'
         },
       ],
