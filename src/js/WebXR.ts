@@ -3,6 +3,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import XR from './Navigator'
 import Reticle from './Reticle'
 import Gallery from './Gallery'
+import SetMeshPosition from './SetMeshPosition'
 
 class WebXR {
   currentSession: THREE.XRSession | null
@@ -91,53 +92,26 @@ class WebXR {
 
     const light = new THREE.DirectionalLight(0xffffff)
     // light.castShadow = true
-    light.position.set(
-      transform.position.x,
-      transform.position.y + 10,
-      transform.position.z + 15
-    )
-    light.quaternion.set(
-      transform.orientation.x,
-      transform.orientation.y,
-      transform.orientation.z,
-      transform.orientation.w
-    )
     // light.shadow.mapSize.width = 1024
     // light.shadow.mapSize.height = 1024
 
     const gallery = new Gallery()
     const room = gallery.createRoom()
-    room.position.set(
-      transform.position.x,
-      transform.position.y,
-      transform.position.z
-    )
-    room.quaternion.set(
-      transform.orientation.x,
-      transform.orientation.y,
-      transform.orientation.z,
-      transform.orientation.w
-    )
     room.rotateY(0.25 * Math.PI)
 
+    const setMeshPosition = new SetMeshPosition(transform)
     new GLTFLoader().load('/model/host.gltf', (gltf) => {
       const model = gltf.scene
       model.scale.set(0.025, 0.025, 0.025)
-      model.position.set(
-        transform.position.x,
-        transform.position.y,
-        transform.position.z
-      )
-      model.quaternion.set(
-        transform.orientation.x,
-        transform.orientation.y,
-        transform.orientation.z,
-        transform.orientation.w
-      )
-      this.scene.add(light, room, model)
-    })
-    controller.userData.isSelecting = false
 
+      this.scene.add(
+        setMeshPosition.set(light, 0, {x:0, y:10, z:15}),
+        setMeshPosition.set(room, 0.25 * Math.PI),
+        setMeshPosition.set(model)
+      )
+    })
+
+    controller.userData.isSelecting = false
     this.reticle.remove(this.scene)
   }
 }
