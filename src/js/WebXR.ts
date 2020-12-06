@@ -60,6 +60,8 @@ class WebXR {
   }
 
   private onSessionEnded() {
+    const renderDom = document.getElementById('renderer')
+    renderDom && renderDom.firstChild && renderDom.removeChild(renderDom.firstChild)
     if(!this.currentSession) return
     this.currentSession.removeEventListener('end', this.onSessionEnded)
     this.currentSession = null

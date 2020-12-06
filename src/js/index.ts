@@ -28,7 +28,8 @@ class ARObject {
     // this.renderer.shadowMap.enabled = true
     // this.renderer.shadowMap.autoUpdate = true
     // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
-    document.body.appendChild(this.renderer.domElement)
+    const renderDom = document.getElementById('renderer')
+    renderDom && renderDom.appendChild(this.renderer.domElement)
 
     // const helper = new THREE.CameraHelper(light.shadow.camera)
     // this.scene.add(helper)
