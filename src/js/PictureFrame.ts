@@ -76,12 +76,12 @@ class PictureFrame {
     switch(type) {
       case PlaneType.WallBack:
         return placement === 'left'
-          ? '/images/koten_01.jpg'
-          : '/images/koten_02.jpg'
+          ? 'images/koten_01.jpg'
+          : 'images/koten_02.jpg'
       case PlaneType.WallRight:
         return placement === 'left'
-          ? '/images/koten_03.jpg'
-          : '/images/koten_04.jpg'
+          ? 'images/koten_03.jpg'
+          : 'images/koten_04.jpg'
     }
     return ''
   }
@@ -91,7 +91,7 @@ class PictureFrame {
     const setMaterial = (geometry) => {
       const loader = new THREE.TextureLoader()
       const material = new THREE.MeshStandardMaterial({
-        map: loader.load('/images/frame.jpg')
+        map: loader.load('images/frame.jpg')
       })
       return new THREE.Mesh(geometry, material)
     }

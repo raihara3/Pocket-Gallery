@@ -128,8 +128,8 @@ class Gallery {
   private getMaterial(type: PlaneType) {
     const loader = new THREE.TextureLoader()
     const texture = type === PlaneType.Floor
-    ? loader.load('/images/floor.jpg')
-    : loader.load('/images/wall.jpg')
+    ? loader.load('images/floor.jpg')
+    : loader.load('images/wall.jpg')
     const material = new THREE.MeshStandardMaterial({
       map: texture
     })

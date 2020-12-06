@@ -102,7 +102,7 @@ class WebXR {
     room.rotateY(0.25 * Math.PI)
 
     const setMeshPosition = new SetMeshPosition(transform)
-    new GLTFLoader().load('/model/host.gltf', (gltf) => {
+    new GLTFLoader().load('model/host.gltf', (gltf) => {
       const model = gltf.scene
       model.scale.set(0.025, 0.025, 0.025)
 
