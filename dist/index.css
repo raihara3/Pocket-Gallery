@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  font-family: "M PLUS Rounded 1c"; }
+
+.wrapper {
+  max-width: 900px;
+  margin: auto; }
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  background: url("/images/header.png") center;
+  background-size: cover; }
+
+.page-title {
+  margin: 0;
+  color: #fff;
+  letter-spacing: 1rem; }
+
+.contents {
+  padding: 20px;
+  text-align: center;
+  font-size: 12px; }
+
+.webAR {
+  margin: 10px; }
+
+.renderer {
+  overflow: hidden;
+  height: 0; }
+
+.ar-button {
+  margin: auto;
+  padding: 15px 30px;
+  border: solid 1px #fff;
+  background-color: black;
+  color: #fff;
+  letter-spacing: 0.2rem;
+  cursor: pointer; }
