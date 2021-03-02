@@ -9,13 +9,7 @@
     "watch-scss": "node-sass --watch ./src/scss/ --output ./dist/",
     "webpack": "webpack --config webpack.config.js --mode development",
     "start": "run-p webpack build-scss watch-scss webpackdevserver",
-    "precommit": "yarn run eslint .eslintrc",
     "webpackdevserver": "webpack-dev-server"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "precommit"
-    }
   },
   "repository": {
     "type": "git",
