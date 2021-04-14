@@ -153,5 +153,5 @@ window.onload = () => {
     startButton.disabled = true
     return
   }
-  startButton.innerText = 'Starat WebAR'
+  startButton.innerText = 'START WebAR'
 }
