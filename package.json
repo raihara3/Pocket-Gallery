@@ -7,9 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-scss": "node-sass ./src/scss/ --output ./dist/",
     "watch-scss": "node-sass --watch ./src/scss/ --output ./dist/",
-    "webpack": "webpack --config webpack.config.js --mode development",
-    "dev": "run-p webpack build-scss watch-scss webpackdevserver",
-    "start": "run-p webpack build-scss webpackdevserver",
+    "dev-webpack": "webpack --config webpack.config.js --mode development --watch",
+    "webpack": "webpack --config webpack.config.js",
+    "dev": "run-p dev-webpack build-scss watch-scss webpackdevserver",
+    "start": "run-p dev-webpack build-scss webpackdevserver",
+    "build": "run-p webpack build-scss",
     "webpackdevserver": "webpack-dev-server"
   },
   "repository": {
