@@ -8,7 +8,8 @@
     "build-scss": "node-sass ./src/scss/ --output ./dist/",
     "watch-scss": "node-sass --watch ./src/scss/ --output ./dist/",
     "webpack": "webpack --config webpack.config.js --mode development",
-    "start": "run-p webpack build-scss watch-scss webpackdevserver",
+    "dev": "run-p webpack build-scss watch-scss webpackdevserver",
+    "start": "run-p webpack build-scss webpackdevserver",
     "webpackdevserver": "webpack-dev-server"
   },
   "repository": {
