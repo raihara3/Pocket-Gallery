@@ -24,7 +24,8 @@ jobs:
           script: |
             cd ${{ secrets.PROJECT_PATH }}
             git pull origin main
-            npm restart start &
+            npm install
+            npm run build
 
   slackNotification:
     needs: deploy
