@@ -1,3 +1,3 @@
 # Pocket Gallery
 
-demo: https://raihara3.github.io/Pocket-Gallery/dist/
+demo: https://raihara3.github.io/webxr-webar-app/dist/
